@@ -19,6 +19,7 @@ func CreateConnection() *DBConnector {
     cfg.Net = "tcp"
     cfg.Addr = "127.0.0.1:3306"
     cfg.DBName = "myfinance"
+	cfg.ParseTime = true
 
     // Get a database handle.
     var err error
