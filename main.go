@@ -7,6 +7,9 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/lucasslima/puc-myfinance-o8/db"
+	"github.com/lucasslima/puc-myfinance-o8/handlers"
 ) 
 
 func serveIndex(w http.ResponseWriter, r *http.Request) {
@@ -36,11 +39,14 @@ func serveBootstrapCSS(w http.ResponseWriter, r *http.Request) {
 
 
 func main()  {
-    http.HandleFunc("/", serveIndex)
+	db := db.CreateConnection()
+	accountHandler := handlers.AccountHandler{DB: db}
+    // http.HandleFunc("/", serveIndex)
     http.HandleFunc("/transactions", transactionList)
     http.HandleFunc("/bootstrap/", serveBootstrapCSS)
 	http.HandleFunc("/js/", serveBootstrapCSS)
 	http.HandleFunc("/css/", serveBootstrapCSS)
+	http.HandleFunc("/accounts", accountHandler.ListAccounts)
 	defer http.ListenAndServe(":8080", nil)
     log.Printf("Started the server port at: %d", 8080)
 }
