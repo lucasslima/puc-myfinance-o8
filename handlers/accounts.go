@@ -38,12 +38,12 @@ func (accHandler AccountHandler) ListAccounts(w http.ResponseWriter, r *http.Req
         fmt.Fprintf(w, "Accounts found: %v\n", accounts)
         
     } else {
-        page, _ := template.ParseFiles("views/list-template.html.tmpl")
-        page.Execute(w,nil)
+        accounts, _ := accHandler.listAllAccounts()
+        // fmt.Fprintf(w, "Accounts: %v\n", accounts)
+        page, _ := template.ParseFiles("views/list-accounts.html.tmpl")
+        page.Execute(w,accounts)
     }
 }
-
-
 
 // Fetches the account with the given code.
 func (accountHandler AccountHandler) accountsByType(accountType string) ([]Accounts, error) {
