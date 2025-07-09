@@ -1,3 +1,4 @@
+{{ define }}
 <!doctype html>
 <html lang="en">
   <head>
@@ -58,13 +59,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/transactions">
                 <span data-feather="shopping-cart"></span>
                 Transações
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/reports">
                 <span data-feather="bar-chart-2"></span>
                 Reports
               </a>
@@ -73,7 +74,7 @@
         </div>
       </nav>
 
-  {{ template .TemplatePath }}
+  {{ template "content" . }}
   </div>
   </body>
 </html>

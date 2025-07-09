@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"text/template"
+	"html/template"
 
 	"github.com/lucasslima/puc-myfinance-o8/db"
 )
