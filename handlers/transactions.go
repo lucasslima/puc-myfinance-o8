@@ -25,25 +25,24 @@ type TransactionHandler struct {
 
 
 func (entryHandler TransactionHandler) ListTransactions(w http.ResponseWriter, r *http.Request) {
-	log.Printf("ListAccounts handling path %s", r.URL)
+	log.Printf("ListTransactions handling path %s", r.URL)
 	var transactions []Transaction
 	var err error
 	transactions, err = entryHandler.listEntries()
 	if err != nil {
 		log.Fatalf("Error fetching transactions: %v", err)
-		http.Error(w, fmt.Sprintf("Error fetching accounts with: %s",  err), http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Error fetching transactions with: %s",  err), http.StatusInternalServerError)
 		return
 	}
-    // templateContext := &PageBody{
-    //     Title: "Account List",
-    //     TemplatePath: "views/list-accounts.html.tmpl",
-    //     TemplateData: accounts,
-    //     }
-	page, err := template.ParseFiles("views/list-transactions.html.tmpl")
-    if err != nil {
-        log.Fatalf("Failed loading template: %s", err)
-    }
-	page.Execute(w, transactions)
+    templateContext := &PageBody{
+        Title: "Account List",
+        TemplatePath: "views/templates/list-transactions.html.tmpl",
+        TemplateData: transactions,
+        }
+	// page, err := template.ParseFiles("views/list-transactions.html.tmpl")
+	layouts := template.Must(template.ParseGlob("views/templates/layouts/*.html.tmpl"))
+	page := template.Must(template.Must(layouts.Clone()).ParseFiles(templateContext.TemplatePath))
+	page.ExecuteTemplate(w, "sidebar.html.tmpl", templateContext)
 }
 
 func (entryHandler TransactionHandler) listEntries() ([]Transaction, error) {
