@@ -45,7 +45,7 @@ func (accHandler AccountHandler) ListAccounts(w http.ResponseWriter, r *http.Req
     //     TemplatePath: "views/list-accounts.html.tmpl",
     //     TemplateData: accounts,
     //     }
-	page, err := template.ParseFiles("views/templates/list-accounts.html.tmpl")
+	page, err := template.ParseFiles("views/templates/accounts.html.tmpl")
     if err != nil {
         log.Fatalf("Failed loading template: %s", err)
     }

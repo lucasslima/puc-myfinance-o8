@@ -35,14 +35,14 @@ func (entryHandler TransactionHandler) ListTransactions(w http.ResponseWriter, r
 		return
 	}
     templateContext := &PageBody{
-        Title: "Account List",
-        TemplatePath: "views/templates/list-transactions.html.tmpl",
+        Title: "Transaction List",
+        TemplatePath: "views/templates/transactions.html.tmpl",
         TemplateData: transactions,
         }
 	// page, err := template.ParseFiles("views/list-transactions.html.tmpl")
-	layouts := template.Must(template.ParseGlob("views/templates/layouts/*.html.tmpl"))
+	layouts := template.Must(template.ParseGlob("views/templates/layouts/*.html"))
 	page := template.Must(template.Must(layouts.Clone()).ParseFiles(templateContext.TemplatePath))
-	page.ExecuteTemplate(w, "sidebar.html.tmpl", templateContext)
+	page.ExecuteTemplate(w, "sidebar.html", templateContext)
 }
 
 func (entryHandler TransactionHandler) listEntries() ([]Transaction, error) {
